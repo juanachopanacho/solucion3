@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulario</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <!-- Añadir Bulma CSS -->
+  <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+  
+    }
+    .button-container {
+      margin-top: 10px;
+    }
+
+    *{
+      margin: 0px;
+      padding: 0px;
+      
+    }
+
+
+  </style>
+</head>
+<body>
+  <h1>Formulario</h1>
+
+  <form id="myForm">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" required class="input is-rounded" type="text" placeholder="Rounded input"><br>
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" required class="input is-rounded" type="text" placeholder="Rounded input"><br>
+
+    <label for="ciudad">Ciudad:</label>
+    <input type="text" id="ciudad" required class="input is-rounded" type="text" placeholder="Rounded input"><br>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="text" id="telefono" required class="input is-rounded" type="text" placeholder="Rounded input"><br>
+
+    <div class="button-container">
+      <button type="button" onclick="agregarRegistro()" class="button is-success">
+      
+        <span class="icon is-small">
+          <i class="fas fa-check"></i>
+        </span>
+        <span>Guardar</span>
+      
+      </button>
+    </div>
+  </form>
+
+  <h2>Registros</h2>
+  <table id="registros" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+    <tr class="table is-bordered">
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Ciudad</th>
+      <th>Teléfono</th>
+      <th>Acciones</th>
+    </tr>
+  </table>
+
+  <script>
+    function agregarRegistro() {
+      var nombre = document.getElementById('nombre').value;
+      var apellido = document.getElementById('apellido').value;
+      var ciudad = document.getElementById('ciudad').value;
+      var telefono = document.getElementById('telefono').value;
+
+      var table = document.getElementById('registros');
+      var row = table.insertRow(-1);
+
+      var cell1 = row.insertCell(0);
+      cell1.innerHTML = nombre;
+
+      var cell2 = row.insertCell(1);
+      cell2.innerHTML = apellido;
+
+      var cell3 = row.insertCell(2);
+      cell3.innerHTML = ciudad;
+
+      var cell4 = row.insertCell(3);
+      cell4.innerHTML = telefono;
+
+      var cell5 = row.insertCell(4);
+      cell5.innerHTML = '<button onclick="editarRegistro(this)">Editar</button> ' +
+                        '<button onclick="eliminarRegistro(this)">Eliminar</button>';
+
+      // Restablecer los valores del formulario
+      document.getElementById('myForm').reset();
+    }
+
+    function editarRegistro(button) {
+      var row = button.parentNode.parentNode;
+      var cells = row.getElementsByTagName('td');
+
+      var nombre = cells[0].innerHTML;
+      var apellido = cells[1].innerHTML;
+      var ciudad = cells[2].innerHTML;
+      var telefono = cells[3].innerHTML;
+
+      document.getElementById('nombre').value = nombre;
+      document.getElementById('apellido').value = apellido;
+      document.getElementById('ciudad').value = ciudad;
+      document.getElementById('telefono').value = telefono;
+
+      // Eliminar la fila actual
+      row.parentNode.removeChild(row);
+    }
+
+    function eliminarRegistro(button) {
+      var row = button.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+  </script>
+</body>
+</html>
